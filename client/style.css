@@ -1,0 +1,13 @@
+@media only screen and (max-width: 992px) {
+  table.responsive-table tbody {
+    overflow-y: hidden;
+  }
+  table.responsive-table th,
+  table.responsive-table td {
+    height: 56px;
+  }
+  table.responsive-table td {
+    width: 95px;
+    white-space: normal;
+  }
+}
