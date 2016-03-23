@@ -7,8 +7,8 @@ Template.dataTable.onCreated ()->
   @previousPage = 1
   @totalPageCount = new ReactiveVar 1
   @updateUI = new ReactiveVar false
+  @sort = new ReactiveVar null
 
-  #
   @subscriptionHandle = {}
   @staticTableData = []
 
@@ -19,23 +19,23 @@ Template.dataTable.onCreated ()->
 
   # Function to retrieve a reactive data cursor
   @jsonData = ()->
-    sort = Session.get 'sort'
+    sort = @sort.get()
 
     if sort?.field? && (sort.direction == -1 || sort.direction == 1)
       cursor = JSONData.find {}, {sort: {"#{sort.field}": sort.direction}}
     else
       cursor = JSONData.find {}
 
-
-Template.dataTable.onRendered ()->
+  # Template level autorun (destroyed automatically with Template destroy)
   @autorun ()=>
     unless Session.get 'liveQuery'
       @subscriptionHandle.stop?()
 
     newPage = thisPage()
+    # Template level subscription (destroyed automatically with Template destroy)
     @subscriptionHandle = @subscribe 'jsonData',
       newPage
-      Session.get 'sort'
+      @sort.get()
       ()=>
         @previousPage = newPage
         Meteor.setTimeout ()=>
@@ -56,14 +56,14 @@ Template.dataTable.events
       Template.instance().currentPage.set currentPage + 1
 
   'click th': ()->
-    sort = Session.get 'sort'
+    sort = Template.instance().sort.get()
 
     if sort?.field == @field
       direction = -1 * sort.direction
     else
       direction = 1
 
-    Session.set 'sort', {field: @field, direction: direction}
+    Template.instance().sort.set {field: @field, direction: direction}
 
 
 Template.dataTable.helpers
@@ -94,7 +94,7 @@ Template.dataTable.helpers
       doc[field]
 
   sortArrow: (field)->
-    sort = Session.get 'sort'
+    sort = Template.instance().sort.get()
     if sort?.field == field
       if sort.direction == -1 then '-desc' else '-asc'
     else
