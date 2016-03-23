@@ -1,0 +1,38 @@
+<template name="extras">
+
+  <div class="row">
+    <div class="col s12 m10">
+      <div class="card teal">
+        <div class="card-content white-text">
+
+          <span class="card-title">Extras</span>
+
+          <p class="flow-text">I chose to implement server side pagination, because I
+            wanted to include best practices for larger scale projects</p>
+          <p class="flow-text">I know full well that it would've been easier to do a full
+            subscription (query = {}) and then perform the sorting on the client. That would've been
+            fine for a small project like this, too. With small datasets, this is the correct decision.</p>
+          <p class="flow-text">When you get into handling large amounts of data, you have to more
+            creative</p>
+
+
+        </div>
+        <div class="card-action">
+
+          <p>
+            <input name="group1" type="radio" id="stop" class="white-text" {{checkIfStop}}/>
+            <label for="stop">Stop the subscription on every sort or page change</label>
+          </p>
+          <p>
+            <input name="group1" type="radio" class="white-text with-gap" id="live" {{checkIfLive}}/>
+            <label for="live">Bad: Don't stop the subscription, see how minimongo is still removing docs AFTER subsReady</label>
+          </p>
+
+          <button class="waves-effect waves-light btn" id="reset">Reset Database</button>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</template>

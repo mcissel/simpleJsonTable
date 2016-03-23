@@ -1,6 +1,8 @@
 docsPerPage = 5 # this isn't changing
 
 Template.dataTable.onCreated ()->
+  Session.set 'pageName', 'Data Table'
+
   @currentPage = new ReactiveVar 1
   @totalPageCount = new ReactiveVar 1
   @updateUI = new ReactiveVar false
@@ -33,16 +35,13 @@ Template.dataTable.onRendered ()->
       Session.get 'sort'
       ()=>
         Meteor.setTimeout ()=>
-#          unless Session.get 'liveQuery'
-          data = @jsonData().fetch()
-          @staticTableData = data
-          @updateUI.set true
+          unless Session.get 'liveQuery'
+            data = @jsonData().fetch()
+            @staticTableData = data
+            @updateUI.set true
         , 0
 
 Template.dataTable.events
-  'click #reset': ()->
-    Meteor.call 'reset'
-
   'click #prevPage': ()->
     currentPage = thisPage()
     if currentPage > 1
@@ -70,14 +69,16 @@ Template.dataTable.helpers
   totalPageCount: ()->  lastPage()
 
   tableData: ()->
+    ti = Template.instance()
+
     if Session.get 'liveQuery'
-      Template.instance().jsonData()
+      ti.jsonData()
     else
-      update = Template.instance().updateUI.get() # now this is reactive
+      update = ti.updateUI.get() # this is reactive
       if update
-        Template.instance().updateUI.set false
+        ti.updateUI.set false
       else
-        Template.instance().staticTableData # this is not reactive
+        ti.staticTableData # this is not reactive
 
 
   prevPageClass: ()-> if thisPage() <= 1 then 'disabled' else ''

@@ -1,58 +1,59 @@
 <template name="dataTable">
+  <div class="row">
+    <div class="col s12">
 
-  {{> upload}}
+      <h2>JSON Data Table</h2>
 
-<!--
-  {{#unless Template.subscriptionsReady}}
-    {{> loadingSpinner}}
-  {{else}}
--->
+<!--      {{#unless Template.subscriptionsReady}}-->
+        <div class="progress" style="{{#if Template.subscriptionsReady}}visibility:hidden;{{/if}}">
+          <div class="indeterminate"></div>
+        </div>
+<!--      {{/unless}}-->
 
-    <button class="waves-effect waves-light btn" id="reset">Reset Database</button>
-
-
-    <div id="tableWrapper">
-      <table id="dataTable" class="striped responsive-table">
-        <thead>
-          <tr>
-            {{#each tableHeaders}}
-              <th>{{field}} <i class="fa fa-sort{{sort field}}"></i></th>
-            {{/each}}
-          </tr>
-        </thead>
-
-        <tbody>
-          {{#each doc in tableData}}
+      <div id="tableWrapper">
+        <table id="dataTable" class="striped responsive-table">
+          <thead>
             <tr>
               {{#each tableHeaders}}
-                <td>{{getValue doc field}}</td>
+                <th>{{field}} <i class="fa fa-sort{{sort field}}"></i></th>
               {{/each}}
             </tr>
-          {{/each}}
-        </tbody>
-      </table>
-    </div>
+          </thead>
 
-    <nav>
-      <div class="nav-wrapper">
-        <div class="col s12">
-          <ul class="pager">
-            <li style="margin-right:15px;">
-              <button class="waves-effect waves-light btn {{prevPageClass}}" id="prevPage">
-                <span aria-hidden="true">&larr;</span> Previous
-              </button>
-            </li>
-            <li>
-              <button class="waves-effect waves-light btn {{nextPageClass}}" id="nextPage">
-                Next <span aria-hidden="true">&rarr;</span>
-              </button>
-            </li>
-          </ul>
+          <tbody>
+            {{#each doc in tableData}}
+              <tr>
+                {{#each tableHeaders}}
+                  <td>{{getValue doc field}}</td>
+                {{/each}}
+              </tr>
+            {{/each}}
+          </tbody>
 
-          <span class="right">{{#if Template.subscriptionsReady}}{{currentPage}}{{else}}_{{/if}} of {{totalPageCount}}</span>
-        </div>
+        </table>
       </div>
-    </nav>
 
-<!--  {{/unless}}-->
+      <nav>
+        <div class="nav-wrapper">
+          <div class="col s12">
+            <ul class="pager">
+              <li style="margin-right:15px;">
+                <button class="waves-effect waves-light btn {{prevPageClass}}" id="prevPage">
+                  <span aria-hidden="true">&larr;</span> Previous
+                </button>
+              </li>
+              <li>
+                <button class="waves-effect waves-light btn {{nextPageClass}}" id="nextPage">
+                  Next <span aria-hidden="true">&rarr;</span>
+                </button>
+              </li>
+            </ul>
+
+            <span class="right">{{#if Template.subscriptionsReady}}{{currentPage}}{{else}}-{{/if}} of {{totalPageCount}}</span>
+          </div>
+        </div>
+      </nav>
+
+    </div>
+  </div>
 </template>

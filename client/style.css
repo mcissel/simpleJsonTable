@@ -10,4 +10,15 @@
     width: 95px;
     white-space: normal;
   }
+
+  .pager button {
+    padding: 0 1rem;
+  }
+}
+
+#dataTable {
+  margin-bottom: 20px;
+}
+#tableWrapper {
+  min-height: 230px;
 }

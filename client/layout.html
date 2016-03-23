@@ -1,11 +1,22 @@
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>JSON Sort n' Page</title>
 </head>
 
 <body>
-  <div class="container">
-    <div class="row">
-      {{> dataTable}}
-    </div>
-  </div>
+  {{> layout}}
 </body>
+
+<template name="layout">
+  <div class="container">
+
+    {{#unless dataExists}}
+      {{> upload}}
+    {{else}}
+      {{> dataTable}}
+
+      {{> extras}}
+    {{/unless}}
+
+  </div>
+</template>

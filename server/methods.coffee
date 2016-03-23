@@ -7,7 +7,6 @@ Meteor.methods
     JSONData.find().count()
 
   parseJSON: (data)->
-
     try
       json = JSON.parse data
     catch error
