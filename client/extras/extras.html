@@ -2,7 +2,7 @@
 
   <div class="row">
     <div class="col s12 m10 l8 offset-m1 offset-l2">
-      <div class="card green darken-1">
+      <div class="card blue-grey darken-1">
         <div class="card-content white-text">
 
           <span class="card-title">Extras</span>
@@ -17,12 +17,12 @@
         <div class="card-action">
           <p>
             <input name="group1" type="radio" id="stop" {{checkIfStop}}/>
-            <label class="white-text" for="stop">Stop the subscription on every sort or page change</label>
+            <label class="white-text" for="stop">Good: Stop the subscription on every sort or page change</label>
           </p>
           <p>
             <input name="group1" type="radio" id="live" {{checkIfLive}}/>
             <label class="white-text" for="live">Bad: Don't stop the subscription, see how minimongo is STILL
-              removing docs AFTER subsReady, plus the data gets sorted on the small MiniMongo subset first, quickly,
+              removing docs AFTER subsReady. Plus, the data gets sorted on the small MiniMongo subset first, quickly,
               and then updates with the new data after.</label>
           </p>
 

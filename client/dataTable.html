@@ -4,8 +4,8 @@
 
       <h2>JSON Data Table</h2>
 
-      <div class="progress" style="{{#if Template.subscriptionsReady}}visibility:hidden;{{/if}}">
-        <div class="indeterminate"></div>
+      <div class="progress amber" style="{{#if Template.subscriptionsReady}}visibility:hidden;{{/if}}">
+        <div class="indeterminate lime lighten-1"></div>
       </div>
 
       <div id="tableWrapper">
@@ -32,22 +32,22 @@
       </div>
 
       <nav>
-        <div class="nav-wrapper blue-grey darken-1">
+        <div class="nav-wrapper grey lighten-4">
           <div class="col s12">
             <ul class="pager">
               <li style="margin-right:15px;">
-                <button class="waves-effect waves-light btn {{prevPageClass}}" id="prevPage">
+                <button class="waves-effect waves-light btn amber darken-4 {{prevPageClass}}" id="prevPage">
                   <span aria-hidden="true">&larr;</span> Previous
                 </button>
               </li>
               <li>
-                <button class="waves-effect waves-light btn {{nextPageClass}}" id="nextPage">
+                <button class="waves-effect waves-light btn amber darken-4 {{nextPageClass}}" id="nextPage">
                   Next <span aria-hidden="true">&rarr;</span>
                 </button>
               </li>
             </ul>
 
-            <span class="right">{{#if Template.subscriptionsReady}}{{currentPage}}{{else}}{{previousPage}}{{/if}} of {{totalPageCount}}</span>
+            <span class="right black-text">{{#if Template.subscriptionsReady}}{{currentPage}}{{else}}{{previousPage}}{{/if}} of {{totalPageCount}}</span>
           </div>
         </div>
       </nav>
