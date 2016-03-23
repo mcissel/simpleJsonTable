@@ -1,38 +1,56 @@
 <template name="extras">
 
   <div class="row">
-    <div class="col s12 m10">
-      <div class="card teal">
+    <div class="col s12 m10 l8 offset-m1 offset-l2">
+      <div class="card green darken-1">
         <div class="card-content white-text">
 
           <span class="card-title">Extras</span>
 
-          <p class="flow-text">I chose to implement server side pagination, because I
-            wanted to include best practices for larger scale projects</p>
-          <p class="flow-text">I know full well that it would've been easier to do a full
-            subscription (query = {}) and then perform the sorting on the client. That would've been
-            fine for a small project like this, too. With small datasets, this is the correct decision.</p>
-          <p class="flow-text">When you get into handling large amounts of data, you have to more
-            creative</p>
+          <div class="divider"></div>
 
-
+          <p class="flow-text">For a smooth UX, the data subscription is stopped and restarted.
+            Turn this feature off to see a common problem with reactive subscriptions. I.e.
+            "subscriptionsReady" doesn't mean the cursor is ready.</p>
         </div>
+
         <div class="card-action">
-
           <p>
-            <input name="group1" type="radio" id="stop" class="white-text" {{checkIfStop}}/>
-            <label for="stop">Stop the subscription on every sort or page change</label>
+            <input name="group1" type="radio" id="stop" {{checkIfStop}}/>
+            <label class="white-text" for="stop">Stop the subscription on every sort or page change</label>
           </p>
           <p>
-            <input name="group1" type="radio" class="white-text with-gap" id="live" {{checkIfLive}}/>
-            <label for="live">Bad: Don't stop the subscription, see how minimongo is still removing docs AFTER subsReady</label>
+            <input name="group1" type="radio" id="live" {{checkIfLive}}/>
+            <label class="white-text" for="live">Bad: Don't stop the subscription, see how minimongo is STILL
+              removing docs AFTER subsReady, plus the data gets sorted on the small MiniMongo subset first, quickly,
+              and then updates with the new data after.</label>
           </p>
 
-          <button class="waves-effect waves-light btn" id="reset">Reset Database</button>
-
+          <button class="waves-effect waves-light btn" id="reset">Reset App</button>
         </div>
       </div>
     </div>
   </div>
 
+
+  <div class="row">
+    <div class="col s12 m10 l8 offset-m1 offset-l2">
+      <div class="card amber darken-4">
+        <div class="card-content white-text">
+
+          <span class="card-title">Server Side Pagination</span>
+
+          <div class="divider"></div>
+
+          <p class="flow-text">Server side pagination is best suited for larger scale projects.</p>
+          <p class="flow-text">Sure, it would've been easier to query the entire data set and then
+            perform sorting solely on the client. In fact, for small datasets, that would've been
+            the correct decision.</p>
+          <p class="flow-text">When you get into handling large amounts of data, you have to be more
+            creative.</p>
+
+        </div>
+      </div>
+    </div>
+  </div>
 </template>

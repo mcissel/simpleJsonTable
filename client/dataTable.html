@@ -4,18 +4,16 @@
 
       <h2>JSON Data Table</h2>
 
-<!--      {{#unless Template.subscriptionsReady}}-->
-        <div class="progress" style="{{#if Template.subscriptionsReady}}visibility:hidden;{{/if}}">
-          <div class="indeterminate"></div>
-        </div>
-<!--      {{/unless}}-->
+      <div class="progress" style="{{#if Template.subscriptionsReady}}visibility:hidden;{{/if}}">
+        <div class="indeterminate"></div>
+      </div>
 
       <div id="tableWrapper">
         <table id="dataTable" class="striped responsive-table">
           <thead>
             <tr>
               {{#each tableHeaders}}
-                <th>{{field}} <i class="fa fa-sort{{sort field}}"></i></th>
+                <th>{{field}} <i class="fa fa-sort{{sortArrow field}}"></i></th>
               {{/each}}
             </tr>
           </thead>
@@ -34,7 +32,7 @@
       </div>
 
       <nav>
-        <div class="nav-wrapper">
+        <div class="nav-wrapper blue-grey darken-1">
           <div class="col s12">
             <ul class="pager">
               <li style="margin-right:15px;">
@@ -49,7 +47,7 @@
               </li>
             </ul>
 
-            <span class="right">{{#if Template.subscriptionsReady}}{{currentPage}}{{else}}-{{/if}} of {{totalPageCount}}</span>
+            <span class="right">{{#if Template.subscriptionsReady}}{{currentPage}}{{else}}{{previousPage}}{{/if}} of {{totalPageCount}}</span>
           </div>
         </div>
       </nav>

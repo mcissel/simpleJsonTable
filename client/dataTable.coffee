@@ -4,16 +4,18 @@ Template.dataTable.onCreated ()->
   Session.set 'pageName', 'Data Table'
 
   @currentPage = new ReactiveVar 1
+  @previousPage = 1
   @totalPageCount = new ReactiveVar 1
   @updateUI = new ReactiveVar false
 
-  @subHandle = {}
-
+  #
+  @subscriptionHandle = {}
   @staticTableData = []
 
+  # Populate the one-time reactive 'totalPageCount' variable
   Meteor.call 'getTotalJSONDataCount', (error, result)=>
     unless error
-      @totalPageCount.set Math.ceil(result / docsPerPage)
+      @totalPageCount.set Math.ceil( result/docsPerPage )
 
   # Function to retrieve a reactive data cursor
   @jsonData = ()->
@@ -28,16 +30,17 @@ Template.dataTable.onCreated ()->
 Template.dataTable.onRendered ()->
   @autorun ()=>
     unless Session.get 'liveQuery'
-      @subHandle.stop?()
+      @subscriptionHandle.stop?()
 
-    window.sub = @subHandle = @subscribe 'jsonData',
-      thisPage()
+    newPage = thisPage()
+    @subscriptionHandle = @subscribe 'jsonData',
+      newPage
       Session.get 'sort'
       ()=>
+        @previousPage = newPage
         Meteor.setTimeout ()=>
           unless Session.get 'liveQuery'
-            data = @jsonData().fetch()
-            @staticTableData = data
+            @staticTableData = @jsonData().fetch()
             @updateUI.set true
         , 0
 
@@ -67,6 +70,7 @@ Template.dataTable.helpers
   tableHeaders: ()->    JSONDataFields.find().fetch()
   currentPage: ()->     thisPage()
   totalPageCount: ()->  lastPage()
+  previousPage: ()->    Template.instance().previousPage
 
   tableData: ()->
     ti = Template.instance()
@@ -80,7 +84,6 @@ Template.dataTable.helpers
       else
         ti.staticTableData # this is not reactive
 
-
   prevPageClass: ()-> if thisPage() <= 1 then 'disabled' else ''
   nextPageClass: ()-> if thisPage() == lastPage() then 'disabled' else ''
 
@@ -90,7 +93,7 @@ Template.dataTable.helpers
     else
       doc[field]
 
-  sort: (field)->
+  sortArrow: (field)->
     sort = Session.get 'sort'
     if sort?.field == field
       if sort.direction == -1 then '-desc' else '-asc'

@@ -11,9 +11,8 @@ Template.upload.events
       window.data = readerEvent.target.result
       Meteor.call 'parseJSON', readerEvent.target.result, (error, result) ->
         if error
-          console.log error
+          sAlert.error error.reason + " - " + error.details
         else
-          console.log result
           Session.set 'dataExists', true
 
     reader.readAsText event.target.files[0]

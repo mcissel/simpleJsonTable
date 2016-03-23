@@ -23,7 +23,7 @@ Meteor.methods
 
     # Throw an error if no valid array is found
     unless Array.isArray json
-      throw new Meteor.Error("no-valid-data", "The collection must be in the 0th or 1st level of the uploaded JSON formatted file.")
+      throw new Meteor.Error(500, "no-valid-data", "The collection must be in the 0th or 1st level of the uploaded JSON formatted file.")
       return
 
     JSONData.remove({})

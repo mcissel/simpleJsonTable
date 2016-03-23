@@ -1,4 +1,8 @@
-.input-field input[type=radio] {
+.card-action [type="radio"]:checked + label:after {
   border: 2px solid #F5C81E;
   background-color: #F5C81E;
+}
+
+.row .card .card-content p {
+  margin: 15px 0;
 }
